@@ -11,8 +11,9 @@ if(isset($route[1]) && $route[1] != ''){
         // Chama a função de create
        $user->create();  
     }elseif($route[1] == 'delete'){
+        $id = $_POST['id'];
          // Adiciona a variavel os atributos da classe
-        $user = new User(1, 'Felipe', ' ', ' ');
+        $user = new User($id,NULL, NULL, NULL);
         //Chama a função de delete  
         $user->delete();  
     }else{

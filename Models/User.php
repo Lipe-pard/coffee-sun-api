@@ -36,8 +36,18 @@ class User{
    }
 
    function delete(){
-    echo 'Usuario deletado' . $this->name;
-}
+    $db = new Database();
+    try {
+      $stmt = $db->conn->prepare("DELETE FROM users WHERE id = :id;");
+      $stmt->bindParam(":id", $this->id);
+      $stmt->execute();
+
+      echo "Deletado com sucesso";
+
+    } catch(PDOException $e) {
+      echo "ERRO" . "<br>" . $e->getMessage();
+    }
+   }
 }
 
 ?>
