@@ -16,7 +16,18 @@ if(isset($route[1]) && $route[1] != ''){
         $user = new User($id,NULL, NULL, NULL);
         //Chama a função de delete  
         $user->delete();  
-    }else{
+    }elseif($route[1] == 'update'){
+       $id = $_POST['id'];
+       $name = $_POST['name'];
+       $email = $_POST['email'];
+       $pass = $_POST['pass'];
+
+       $user = new User($id,$name,$email,$pass);
+
+       $user->update();
+    }
+    
+    else{
         echo "404 Página não encontrada";
     }
 }else{
