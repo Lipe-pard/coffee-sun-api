@@ -83,7 +83,7 @@
                     "enabled": true,
                     "type": "Text",
                     "name": "id",
-                    "value": ""
+                    "value": "2"
                   }
                 ]
               },
@@ -108,6 +108,148 @@
                 "enabled": true,
                 "name": "Content-Type",
                 "value": "application/x-www-form-urlencoded"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost",
+              "path": "/Aula_LP2/api/user/select_all"
+            },
+            "id": "ab61b408-9427-49e8-b2ea-c55018f20dd8",
+            "name": "Select_all",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": [
+                  {
+                    "enabled": true,
+                    "type": "Text",
+                    "name": "id",
+                    "value": "1"
+                  }
+                ]
+              },
+              "bodyType": "Form"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost",
+              "path": "/Aula_LP2/api/user/select_id"
+            },
+            "id": "f66d16a4-9cdd-42d0-88e2-3879085e51e5",
+            "name": "Select_id",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "multipart/form-data",
+                "items": [
+                  {
+                    "enabled": true,
+                    "type": "Text",
+                    "name": "id",
+                    "value": "4"
+                  },
+                  {
+                    "enabled": true,
+                    "type": "Text",
+                    "name": "name",
+                    "value": "AntonioZé"
+                  },
+                  {
+                    "enabled": true,
+                    "type": "Text",
+                    "name": "email",
+                    "value": "antonioZé@gmail.com"
+                  },
+                  {
+                    "enabled": true,
+                    "type": "Text",
+                    "name": "pass",
+                    "value": "785822136"
+                  }
+                ]
+              },
+              "bodyType": "Form"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "localhost",
+              "path": "/Aula_LP2/api/user/update"
+            },
+            "id": "3626e8b8-2074-4242-86ef-90529a9cf1f5",
+            "name": "Update-user",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "multipart/form-data"
               }
             ]
           }

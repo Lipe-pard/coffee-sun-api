@@ -52,7 +52,7 @@ class User{
    function update(){
     $db = new Database();
     try {
-      $stmt = $db->conn->prepare("UPDATE users SET nome = :name, email = :email, password = :pass WHERE id = :id;");
+      $stmt = $db->conn->prepare("UPDATE users SET name = :name, email = :email, password = :pass WHERE id = :id;");
       $stmt->bindParam(":id", $this->id);
       $stmt->bindParam(":name", $this->name);
       $stmt->bindParam(":email", $this->email);
@@ -60,6 +60,49 @@ class User{
       $stmt->execute();
 
       echo "Editado com sucesso";
+
+    } catch(PDOException $e) {
+      echo "ERRO" . "<br>" . $e->getMessage();
+    }
+   }
+
+   function selectAll(){
+    $db = new Database();
+    try {
+      $stmt = $db->conn->prepare("SELECT * FROM users");
+      $stmt->execute();
+
+      $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      foreach($rows as $row ){
+        printf(
+          "Nome: " . $row['name']. "\r\n".
+          "Email: " . $row['email']. "\r\n".
+          "Senha: " . $row['password']. "\r\n"
+      );
+      }
+
+    } catch(PDOException $e) {
+      echo "ERRO" . "<br>" . $e->getMessage();
+    }
+   }
+
+   function selectId(){
+    $db = new Database();
+    try {
+      $stmt = $db->conn->prepare("SELECT name, email, password FROM users WHERE id = :id");
+      $stmt->bindParam(":id", $this->id);
+      $stmt->execute();
+
+      $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      foreach($rows as $row ){
+        printf(
+          "Nome: " . $row['name'] . "\r\n".
+          "Email: " . $row['email']. "\r\n".
+          "Senha: " . $row['password']
+      );
+    }
 
     } catch(PDOException $e) {
       echo "ERRO" . "<br>" . $e->getMessage();

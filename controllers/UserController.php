@@ -25,7 +25,16 @@ if(isset($route[1]) && $route[1] != ''){
        $user = new User($id,$name,$email,$pass);
 
        $user->update();
-    }
+
+    }elseif($route[1] == 'select_all'){
+      $user = new User('', ' ', ' ', ' ');
+      $user->selectAll();
+
+    }elseif($route[1] == 'select_id'){
+        $id = $_POST['id'];
+        $user = new User($id, ' ', ' ', ' ');
+        $user->selectId();
+      }
     
     else{
         echo "404 Página não encontrada";
