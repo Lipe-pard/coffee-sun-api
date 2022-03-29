@@ -12,7 +12,7 @@ if(isset($route[1]) && $route[1] != ''){
        $user->create();  
     }elseif($route[1] == 'delete'){
          // Adiciona a variavel os atributos da classe
-        $user = new User(1, 'Felipe', ' ', ' ');
+        $user = new User(1, 'Antonio', ' ', ' ');
         //Chama a função de delete  
         $user->delete();  
     }else{
