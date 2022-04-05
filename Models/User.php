@@ -1,11 +1,9 @@
 <?php 
 
-require('helpers/database.php');
-
 class User{
     //propriedades
    public $id;
-   public $nome;
+   public $name;
    public $email;
    public $pass;
 
@@ -13,7 +11,7 @@ class User{
 
    function __construct($id, $name, $email, $pass){
        $this->id = $id;
-       $this->nome = $name;
+       $this->name = $name;
        $this->email = $email;
        $this->pass = $pass;
    }
@@ -22,16 +20,26 @@ class User{
    function create(){
       $db = new Database();
       try {
-        $stmt = $db->conn->prepare("INSERT INTO users (nome, email, password) VALUES (:nome, :email, :pass)");
-        $stmt->bindParam(":nome", $this->nome);
+        $stmt = $db->conn->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :pass)");
+        $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":pass", $this->pass);
         $stmt->execute();
 
-        echo "Cadastrado com sucesso";
+        $id = $db->conn->lastInsertId();
+
+        $result['Mensage'] = "cadastrado com sucesso";
+        $result['user']['id'] = $id;
+        $result['user']['name'] = $this->name;
+        $result['user']['email'] = $this->email;
+        $result['user']['pass'] = $this->pass;
+        $response = new Output();
+        $response->out($result, 200);
 
       } catch(PDOException $e) {
-        echo "ERRO" . "<br>" . $e->getMessage();
+        $result['Mensage'] = "Erro Create" . $e-> getMenssage();
+        $response = new Output();
+        $response->out($result, 500);
       }
    }
 
@@ -42,27 +50,41 @@ class User{
       $stmt->bindParam(":id", $this->id);
       $stmt->execute();
 
-      echo "Deletado com sucesso";
+        $result['Mensage'] = "Deletado com Sucesso";
+        $result['user']['id'] = $this->id;
+        $response = new Output();
+        $response->out($result, 200);
 
     } catch(PDOException $e) {
-      echo "ERRO" . "<br>" . $e->getMessage();
+      $result['Mensage'] = "Erro no Delete" . $e-> getMenssage();
+      $response = new Output();
+      $response = out($result, 500);
     }
    }
 
    function update(){
     $db = new Database();
     try {
-      $stmt = $db->conn->prepare("UPDATE users SET name = :name, email = :email, password = :pass WHERE id = :id;");
-      $stmt->bindParam(":id", $this->id);
-      $stmt->bindParam(":name", $this->name);
-      $stmt->bindParam(":email", $this->email);
-      $stmt->bindParam(":pass", $this->pass);
+      $stmt = $db->conn->prepare("UPDATE users SET name=:name, email=:email, password=:pass WHERE id=:id;");
+      $stmt->bindParam(':id', $this->id);
+      $stmt->bindParam(':name', $this->name);
+      $stmt->bindParam(':email', $this->email);
+      $stmt->bindParam(':pass', $this->pass);
       $stmt->execute();
 
-      echo "Editado com sucesso";
+      $result['Mensage'] = "Editado com sucesso";
+      $result['user']['id'] = $this->id;
+      $result['user']['name'] = $this->name;
+      $result['user']['email'] = $this->email;
+      $result['user']['pass'] = $this->pass;
+      $response = new Output();
+      $response->out($result, 200);
+
 
     } catch(PDOException $e) {
-      echo "ERRO" . "<br>" . $e->getMessage();
+      $result['Mensage'] = "Erro de Update" . $e-> getMenssage();
+      $response = new Output();
+      $reaponse = out($result, 500);
     }
    }
 
@@ -72,18 +94,15 @@ class User{
       $stmt = $db->conn->prepare("SELECT * FROM users");
       $stmt->execute();
 
-      $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-      foreach($rows as $row ){
-        printf(
-          "Nome: " . $row['name']. "\r\n".
-          "Email: " . $row['email']. "\r\n".
-          "Senha: " . $row['password']. "\r\n"
-      );
-      }
+      $response = new Output();
+      $response->out($result);
 
     } catch(PDOException $e) {
-      echo "ERRO" . "<br>" . $e->getMessage();
+      $result['Mensage'] = "Erro de Select" . $e-> getMenssage();
+      $response = new Output();
+      $reaponse = out($result, 500);
     }
    }
 
@@ -94,18 +113,15 @@ class User{
       $stmt->bindParam(":id", $this->id);
       $stmt->execute();
 
-      $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-      foreach($rows as $row ){
-        printf(
-          "Nome: " . $row['name'] . "\r\n".
-          "Email: " . $row['email']. "\r\n".
-          "Senha: " . $row['password']
-      );
-    }
+      $response = new Output();
+      $response->out($result);
 
     } catch(PDOException $e) {
-      echo "ERRO" . "<br>" . $e->getMessage();
+      $result['Mensage'] = "Erro Select id" . $e-> getMenssage();
+      $response = new Output();
+      $reaponse = out($result, 500);
     }
    }
 }

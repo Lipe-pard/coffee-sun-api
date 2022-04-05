@@ -13,10 +13,14 @@ if(isset($route[1]) && $route[1] != ''){
         // Chama a função de delete
         $user->delete();
     }else{
-        echo "404 Página não encontrada";
+        $result['Mensage'] = "404 - Rota da api não encontrada";
+        $response = new Output();
+        $reaponse = out($result, 404);
     }
 }else{
-    echo "404 Página não encontrada";
+    $result['Mensage'] = "404 - Rota da api não encontrada";
+    $response = new Output();
+    $reaponse = out($result, 404);
 }
 
 ?>

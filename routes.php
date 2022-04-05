@@ -8,10 +8,8 @@ $url_clean = substr($url, $lengthStrForlder); // Retira a parte da constante da 
 
 $route = explode("/", $url_clean); // Separa a parte selecionada da url em varios partes
 
-//Automatiza a parte de link do model com o controller
-spl_autoload_register(function($class_name){
-   require 'Models/' . $class_name . '.php';
-});
+//Carrega o autoloaders
+require('helpers/autoloaders.php');
 
 //Os ifs indentican o que foi digitado e redireciona para a pagina certa
 if($route[0] == 'user'){
@@ -19,7 +17,9 @@ if($route[0] == 'user'){
 }elseif($route[0] == 'produto'){
     require('controllers/ProdutoController.php');
 }else{
-    echo "404 Página não encontrada";
+    $result['Mensage'] = "404 - Rota da api não encontrada";
+    $response = new Output();
+    $reaponse = out($result, 404);
 }
 
 ?>
