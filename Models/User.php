@@ -28,15 +28,10 @@ class User{
 
         $id = $db->conn->lastInsertId();
 
-        $result['Mensage'] = "cadastrado com sucesso";
-        $result['user']['id'] = $id;
-        $result['user']['name'] = $this->name;
-        $result['user']['email'] = $this->email;
-        $result['user']['pass'] = $this->pass;
-        $response = new Output();
-        $response->out($result, 200);
+        return $id;
 
-      } catch(PDOException $e) {
+      } 
+      catch(PDOException $e) {
         $result['Mensage'] = "Erro Create" . $e-> getMenssage();
         $response = new Output();
         $response->out($result, 500);
@@ -50,12 +45,10 @@ class User{
       $stmt->bindParam(":id", $this->id);
       $stmt->execute();
 
-        $result['Mensage'] = "Deletado com Sucesso";
-        $result['user']['id'] = $this->id;
-        $response = new Output();
-        $response->out($result, 200);
+      return true;
 
-    } catch(PDOException $e) {
+    } 
+    catch(PDOException $e) {
       $result['Mensage'] = "Erro no Delete" . $e-> getMenssage();
       $response = new Output();
       $response = out($result, 500);
@@ -72,16 +65,10 @@ class User{
       $stmt->bindParam(':pass', $this->pass);
       $stmt->execute();
 
-      $result['Mensage'] = "Editado com sucesso";
-      $result['user']['id'] = $this->id;
-      $result['user']['name'] = $this->name;
-      $result['user']['email'] = $this->email;
-      $result['user']['pass'] = $this->pass;
-      $response = new Output();
-      $response->out($result, 200);
+      return true;
 
-
-    } catch(PDOException $e) {
+    } 
+    catch(PDOException $e) {
       $result['Mensage'] = "Erro de Update" . $e-> getMenssage();
       $response = new Output();
       $reaponse = out($result, 500);
@@ -96,10 +83,10 @@ class User{
 
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-      $response = new Output();
-      $response->out($result);
+      return $result;
 
-    } catch(PDOException $e) {
+    } 
+    catch(PDOException $e) {
       $result['Mensage'] = "Erro de Select" . $e-> getMenssage();
       $response = new Output();
       $reaponse = out($result, 500);
@@ -115,10 +102,10 @@ class User{
 
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-      $response = new Output();
-      $response->out($result);
+      return $result;
 
-    } catch(PDOException $e) {
+    } 
+    catch(PDOException $e) {
       $result['Mensage'] = "Erro Select id" . $e-> getMenssage();
       $response = new Output();
       $reaponse = out($result, 500);
